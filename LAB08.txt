@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define nMax 30
+struct notas
+{
+	float P1;
+	float P2;
+	float P3; 
+	char conceito[10];
+};
+struct aluno
+{
+	char nome[50];
+	char matricula[20];
+	int idade;
+	notas nota_aluno;
+};
+
+aluno cadastroAluno();
+void imprimeNaTela(aluno x, int pos);
+void mostraCadastro(aluno x[], int num);
+
+int main()
+{
+	aluno a[nMax];
+	int n = 0; 
+	while (n <= 0 || n > nMax)
+	{
+		printf("\nDigite a quantidade de alunos para cadastrar:\n");
+		scanf("%d", &n);
+		getchar();
+	}
+	for (int i = 0; i < n; i++)
+	{
+		system("cls");
+		printf("\nDados aluno %d:",i+1);
+		a[i] = cadastroAluno();
+	}
+	mostraCadastro(a, n);
+	return 0;
+}
+aluno cadastroAluno()
+{
+	aluno aux;
+	printf("\nInserir os dados:\n");
+	printf("\nNome: ");
+	fgets(aux.nome, 50, stdin);
+	printf("\nMatricula: ");
+	fgets(aux.matricula, 20, stdin);
+	printf("\nIdade: ");
+	scanf("%d", &aux.idade);
+	getchar();
+	printf("\nNotas: P1, P2 e P3:\n");
+	scanf("%f%f%f", &aux.nota_aluno.P1, &aux.nota_aluno.P2, &aux.nota_aluno.P3);
+	getchar();
+	printf("\nConceito: ");
+	fgets(aux.nota_aluno.conceito, 10, stdin);
+	return aux;
+}
+void imprimeNaTela(aluno x, int pos)
+{
+	printf("\nAluno %d\nNome: %sMatricula: %sIdade: %d\nNotas:\nP1: %.2f\nP2: %.2f\n\
+P3: %.2f\nConceito: %s",pos,x.nome,x.matricula,x.idade,x.nota_aluno.P1,x.nota_aluno.P2,
+x.nota_aluno.P3,x.nota_aluno.conceito);
+}
+void mostraCadastro(aluno x[], int num)
+{
+	system("cls");
+	printf("\n-------------------------\nAlunos no cadastro:\n");
+	for (int i = 0; i < num; i++)
+		imprimeNaTela(x[i], i + 1);
+}
